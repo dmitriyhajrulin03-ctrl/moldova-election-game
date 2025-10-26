@@ -663,17 +663,17 @@ export default function MoldovaElectionGame() {
 
     if (phase === 'rival_selection') {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-50 to-blue-50 p-8 relative overflow-hidden">
+            <div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-50 to-blue-50 p-4 md:p-8 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
                 
                 <div className="max-w-6xl mx-auto relative z-10">
-                    <Button onClick={resetGame} variant="outline" className="mb-8 border-slate-300 text-slate-700 hover:bg-slate-100">{TRANSLATIONS[language].backToCandidates}</Button>
-                    <div className="text-center mb-12">
+                    <Button onClick={resetGame} variant="outline" className="mb-6 md:mb-8 border-slate-300 text-slate-700 hover:bg-slate-100">{TRANSLATIONS[language].backToCandidates}</Button>
+                    <div className="text-center mb-8 md:mb-12">
                         <h1 className="text-3xl md:text-5xl font-bold text-slate-800 mb-3 tracking-tight">{TRANSLATIONS[language].chooseRival}</h1>
-                        <p className="text-lg text-slate-600 font-medium">{TRANSLATIONS[language].fromParty} {rivalPartyToChoose}</p>
+                        <p className="text-sm md:text-lg text-slate-600 font-medium">{TRANSLATIONS[language].fromParty} {rivalPartyToChoose}</p>
                     </div>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-10 max-w-5xl mx-auto">
                         {candidatesForRivalChoice.map(candidate => (
                             <div
                                 key={candidate.id}
@@ -682,17 +682,17 @@ export default function MoldovaElectionGame() {
                             >
                                 <div className="relative">
                                     <div className="absolute inset-0 bg-gradient-to-r from-slate-400 to-slate-500 rounded-3xl blur-xl opacity-30 group-hover:opacity-40 transition duration-500"></div>
-                                    <div className="relative bg-white rounded-3xl shadow-lg hover:shadow-xl border border-slate-100 p-10 backdrop-blur-sm">
-                                        <div className="flex items-center gap-8 mb-8">
+                                    <div className="relative bg-white rounded-3xl shadow-lg hover:shadow-xl border border-slate-100 p-4 md:p-10 backdrop-blur-sm">
+                                        <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 mb-4 md:mb-8">
                                             <img src={candidate.photoSrc} alt={getCandidateName(candidate)} 
-                                                 className="w-28 h-28 rounded-full border-4 border-slate-200 object-cover shadow-md" />
-                                            <div className="flex-1">
-                                                <h3 className="font-bold text-3xl text-slate-900">{getCandidateName(candidate)}</h3>
-                                                <p className="text-slate-700 font-bold text-lg mt-2">{candidate.party}</p>
-                                                <img src={candidate.logoSrc} alt={candidate.party} className="w-16 h-16 mt-4" />
+                                                 className="w-20 md:w-28 h-20 md:h-28 rounded-full border-4 border-slate-200 object-cover shadow-md flex-shrink-0" />
+                                            <div className="flex-1 text-center md:text-left">
+                                                <h3 className="font-bold text-xl md:text-3xl text-slate-900">{getCandidateName(candidate)}</h3>
+                                                <p className="text-slate-700 font-bold text-sm md:text-lg mt-2">{candidate.party}</p>
+                                                <img src={candidate.logoSrc} alt={candidate.party} className="w-10 md:w-16 h-10 md:h-16 mt-2 md:mt-4 mx-auto md:mx-0" />
                                             </div>
                                         </div>
-                                        <Button className="w-full bg-slate-700 hover:bg-slate-800 text-white text-lg py-7 shadow-md hover:shadow-lg transition-all duration-300 rounded-xl">{TRANSLATIONS[language].selectRival}</Button>
+                                        <Button className="w-full bg-slate-700 hover:bg-slate-800 text-white text-sm md:text-lg py-4 md:py-7 shadow-md hover:shadow-lg transition-all duration-300 rounded-xl">{TRANSLATIONS[language].selectRival}</Button>
                                     </div>
                                 </div>
                             </div>
@@ -914,21 +914,21 @@ export default function MoldovaElectionGame() {
                                 
                                 <div className="grid grid-cols-2 gap-2 overflow-y-auto flex-1">
                                     {results.map((res, idx) => (
-                                        <div key={idx} className="bg-white rounded-lg border border-slate-200 p-3 hover:shadow-md transition-all">
-                                            <div className="flex gap-3 items-center">
+                                        <div key={idx} className="bg-white rounded-lg border border-slate-200 p-2 md:p-3 hover:shadow-md transition-all">
+                                            <div className="flex gap-2 md:gap-3 items-start">
                                                 {/* Logo */}
-                                                <div className="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-slate-50 rounded border border-slate-200">
+                                                <div className="w-10 md:w-12 h-10 md:h-12 flex-shrink-0 flex items-center justify-center bg-slate-50 rounded border border-slate-200">
                                                     <img 
                                                         src={res.logoSrc} 
                                                         alt={res.party} 
-                                                        className="w-10 h-10 object-contain"
+                                                        className="w-8 md:w-10 h-8 md:h-10 object-contain"
                                                     />
                                                 </div>
                                                 
                                                 {/* Name and Stats */}
                                                 <div className="flex-1 min-w-0">
-                                                    <p className="font-bold text-sm text-slate-900 line-clamp-1">{getCandidateName(res)}</p>
-                                                    <p className="text-sm text-slate-600 font-semibold">
+                                                    <p className="font-bold text-xs md:text-sm text-slate-900 break-words">{getCandidateName(res)}</p>
+                                                    <p className="text-xs md:text-sm text-slate-600 font-semibold">
                                                         <span className="font-black text-slate-900">{res.percentage.toFixed(2)}%</span> ({res.votes.toLocaleString('uk-UA')})
                                                     </p>
                                                 </div>
