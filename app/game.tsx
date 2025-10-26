@@ -7,7 +7,19 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 
 // Game data
-const ALL_CANDIDATES = [
+type CandidateBase = {
+    id: string;
+    nameUk: string;
+    nameRu: string;
+    party: string;
+    logoSrc: string;
+    photoSrc: string;
+    color: string;
+    baseRating: number;
+    political_spectrum: 'pro_eu' | 'pro_ru' | 'centrist';
+};
+
+const ALL_CANDIDATES: CandidateBase[] = [
     { id: 'grosu', nameUk: 'Ігор Гросу', nameRu: 'Игорь Гросу', party: 'PAS', logoSrc: '/logo/Grosu.png', photoSrc: '/photo/Grosu-photo.png', color: '#FFDD00', baseRating: 25, political_spectrum: 'pro_eu' },
     { id: 'recean', nameUk: 'Дорін Речан', nameRu: 'Дорин Речан', party: 'PAS', logoSrc: '/logo/Recean.png', photoSrc: '/photo/Recean-photo.png', color: '#FFDD00', baseRating: 24, political_spectrum: 'pro_eu' },
     { id: 'dodon', nameUk: 'Ігор Додон', nameRu: 'Игорь Додон', party: 'PSRM', logoSrc: '/logo/Dodon.png', photoSrc: '/photo/Dodon-photo.png', color: '#DF2224', baseRating: 22, political_spectrum: 'pro_ru' },
