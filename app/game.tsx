@@ -529,7 +529,7 @@ export default function MoldovaElectionGame() {
                 <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
                 
                 <div className="relative z-10 bg-white rounded-3xl shadow-lg border border-slate-100 p-16 text-center max-w-2xl w-full backdrop-blur-sm">
-                    <h1 className="text-6xl font-bold text-slate-900 mb-8">{TRANSLATIONS[language].loading}</h1>
+                    <h1 className="text-3xl md:text-6xl font-bold text-slate-900 mb-8">{TRANSLATIONS[language].loading}</h1>
                     <img 
                         src="/photo/Coat_of_arms_of_Moldova.png" 
                         alt="Герб Молдови" 
@@ -576,7 +576,7 @@ export default function MoldovaElectionGame() {
                                 className="w-16 h-16 object-contain"
                             />
                         </div>
-                        <h1 className="text-6xl font-bold text-slate-900 mb-2 tracking-tight">{TRANSLATIONS[language].title}</h1>
+                        <h1 className="text-3xl md:text-6xl font-bold text-slate-900 mb-2 tracking-tight">{TRANSLATIONS[language].title}</h1>
                         <p className="text-xl text-slate-600 font-medium">{TRANSLATIONS[language].selectCandidate}</p>
                     </div>
 
@@ -669,7 +669,7 @@ export default function MoldovaElectionGame() {
                 <div className="max-w-6xl mx-auto relative z-10">
                     <Button onClick={resetGame} variant="outline" className="mb-8 border-slate-300 text-slate-700 hover:bg-slate-100">{TRANSLATIONS[language].backToCandidates}</Button>
                     <div className="text-center mb-12">
-                        <h1 className="text-5xl font-bold text-slate-800 mb-3 tracking-tight">{TRANSLATIONS[language].chooseRival}</h1>
+                        <h1 className="text-3xl md:text-5xl font-bold text-slate-800 mb-3 tracking-tight">{TRANSLATIONS[language].chooseRival}</h1>
                         <p className="text-lg text-slate-600 font-medium">{TRANSLATIONS[language].fromParty} {rivalPartyToChoose}</p>
                     </div>
                     
@@ -868,7 +868,7 @@ export default function MoldovaElectionGame() {
                 
                 <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col h-full">
                     <div className="text-center mb-4 flex-shrink-0">
-                        <h1 className="text-4xl font-bold text-slate-900 mb-1">{title}</h1>
+                        <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-1">{title}</h1>
                         <p className="text-sm text-slate-600">{TRANSLATIONS[language].clickRegion}</p>
                     </div>
 
@@ -959,10 +959,10 @@ export default function MoldovaElectionGame() {
                 <div className="absolute top-0 right-0 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
                 
                 <div className="relative z-10 bg-white rounded-3xl shadow-lg border border-slate-100 p-16 text-center max-w-2xl w-full backdrop-blur-sm">
-                    <h1 className="text-6xl font-bold text-slate-900 mb-8">{TRANSLATIONS[language].finalResults}</h1>
-                    <p className="text-2xl text-slate-700 mb-10 leading-relaxed font-bold">{finalMessage}</p>
+                    <h1 className="text-3xl md:text-6xl font-bold text-slate-900 mb-8">{TRANSLATIONS[language].finalResults}</h1>
+                    <p className="text-lg md:text-2xl text-slate-700 mb-10 leading-relaxed font-bold">{finalMessage}</p>
                     
-                    <div className={`text-5xl font-black mb-12 p-8 rounded-3xl border-4 transition-all duration-500 ${
+                    <div className={`text-3xl md:text-5xl font-black mb-12 p-8 rounded-3xl border-4 transition-all duration-500 ${
                         isWinner 
                             ? 'bg-green-50 text-green-700 border-green-300' 
                             : 'bg-slate-100 text-slate-700 border-slate-300'
