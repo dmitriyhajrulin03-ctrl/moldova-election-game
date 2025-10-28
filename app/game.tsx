@@ -19,6 +19,18 @@ type CandidateBase = {
     political_spectrum: 'pro_eu' | 'pro_ru' | 'centrist';
 };
 
+type PartyBase = {
+    id: string;
+    nameUk: string;
+    nameRu: string;
+    shortNameUk: string;
+    shortNameRu: string;
+    logoSrc: string;
+    color: string;
+    baseRating: number;
+    political_spectrum: 'pro_eu' | 'pro_ru' | 'centrist';
+};
+
 const ALL_CANDIDATES: CandidateBase[] = [
     { id: 'grosu', nameUk: 'Ігор Гросу', nameRu: 'Игорь Гросу', party: 'PAS', logoSrc: '/logo/Grosu.png', photoSrc: '/photo/Grosu-photo.png', color: '#FFDD00', baseRating: 25, political_spectrum: 'pro_eu' },
     { id: 'recean', nameUk: 'Дорін Речан', nameRu: 'Дорин Речан', party: 'PAS', logoSrc: '/logo/Recean.png', photoSrc: '/photo/Recean-photo.png', color: '#FFDD00', baseRating: 24, political_spectrum: 'pro_eu' },
@@ -31,6 +43,64 @@ const ALL_CANDIDATES: CandidateBase[] = [
     { id: 'tarlev', nameUk: 'Василь Тарлєв', nameRu: 'Василий Тарлев', party: 'Viitorul Moldovei', logoSrc: '/logo/Tarlev.png', photoSrc: '/photo/Tarlev-photo.png', color: '#FF8822', baseRating: 3, political_spectrum: 'centrist' },
     { id: 'costiuc', nameUk: 'Василь Костюк', nameRu: 'Василий Костюк', party: 'Democrația Acasă', logoSrc: '/logo/Costiuk.png', photoSrc: '/photo/Costiuk-photo.png', color: '#24247A', baseRating: 2, political_spectrum: 'pro_eu' },
     { id: 'ulianovschi', nameUk: 'Тудор Ульяновський', nameRu: 'Тудор Ульяновский', party: 'PSDE', logoSrc: '/logo/Ulianovschi.png', photoSrc: '/photo/Ulianovschi-photo.png', color: '#004B96', baseRating: 2, political_spectrum: 'pro_eu' }
+];
+
+const ALL_PARTIES: PartyBase[] = [
+    { 
+        id: 'pas', 
+        nameUk: 'Дія та солідарність', 
+        nameRu: 'Действие и солидарность',
+        shortNameUk: 'PAS',
+        shortNameRu: 'PAS',
+        logoSrc: '/party-logos/PAS.png',
+        color: '#FFDD00',
+        baseRating: 50,
+        political_spectrum: 'pro_eu'
+    },
+    { 
+        id: 'pib', 
+        nameUk: 'Патріотичний блок', 
+        nameRu: 'Патриотический блок',
+        shortNameUk: 'ПИБ',
+        shortNameRu: 'ПИБ',
+        logoSrc: '/party-logos/BEP.png',
+        color: '#DF2224',
+        baseRating: 24,
+        political_spectrum: 'pro_ru'
+    },
+    { 
+        id: 'alternativa', 
+        nameUk: 'Альтернатива', 
+        nameRu: 'Альтернатива',
+        shortNameUk: 'БА',
+        shortNameRu: 'БА',
+        logoSrc: '/party-logos/Alternativa.png',
+        color: '#009A7D',
+        baseRating: 8,
+        political_spectrum: 'centrist'
+    },
+    { 
+        id: 'nostru', 
+        nameUk: 'Наша партія', 
+        nameRu: 'Наша партия',
+        shortNameUk: 'НП',
+        shortNameRu: 'НП',
+        logoSrc: '/party-logos/Nostru.png',
+        color: '#2680FA',
+        baseRating: 6,
+        political_spectrum: 'centrist'
+    },
+    { 
+        id: 'democratia', 
+        nameUk: 'Демократія вдома', 
+        nameRu: 'Демократия дома',
+        shortNameUk: 'ДД',
+        shortNameRu: 'ДД',
+        logoSrc: '/party-logos/DA.png',
+        color: '#24247A',
+        baseRating: 5,
+        political_spectrum: 'pro_eu'
+    }
 ];
 
 const RIVAL_PAIRS = { 'grosu': 'recean', 'recean': 'grosu', 'dodon': 'cebotari', 'cebotari': 'dodon' };
@@ -68,7 +138,12 @@ const actions = [
 const TRANSLATIONS = {
     uk: {
         title: 'Президентські вибори 2028',
+        parliamentTitle: 'Парламентські вибори 2025',
+        selectGameMode: 'Виберіть режим гри',
+        presidential: 'Президентські вибори',
+        parliamentary: 'Парламентські вибори',
         selectCandidate: 'Виберіть свого кандидата',
+        selectParty: 'Виберіть свою партію',
         chooseRival: 'Виберіть суперника',
         fromParty: 'від партії',
         selectRival: 'Обрати суперника',
@@ -108,7 +183,12 @@ const TRANSLATIONS = {
     },
     ru: {
         title: 'Президентские выборы 2028',
+        parliamentTitle: 'Парламентские выборы 2025',
+        selectGameMode: 'Выберите режим игры',
+        presidential: 'Президентские выборы',
+        parliamentary: 'Парламентские выборы',
         selectCandidate: 'Выберите своего кандидата',
+        selectParty: 'Выберите свою партию',
         chooseRival: 'Выберите соперника',
         fromParty: 'от партии',
         selectRival: 'Выбрать соперника',
@@ -148,7 +228,9 @@ const TRANSLATIONS = {
     }
 };
 
-type GamePhase = 'selection' | 'rival_selection' | 'campaign' | 'round1_results' | 'round2_campaign' | 'round2_results' | 'final_screen';
+type GamePhase = 'mode_selection' | 'selection' | 'party_selection' | 'rival_selection' | 'campaign' | 'parliament_campaign' | 'round1_results' | 'round2_campaign' | 'round2_results' | 'final_screen';
+
+type GameMode = 'presidential' | 'parliamentary';
 
 type CandidateState = {
     id: string;
@@ -164,21 +246,41 @@ type CandidateState = {
     isPlayer?: boolean;
 };
 
+type PartyState = {
+    id: string;
+    nameUk: string;
+    nameRu: string;
+    shortNameUk: string;
+    shortNameRu: string;
+    logoSrc: string;
+    color: string;
+    baseRating: number;
+    political_spectrum: 'pro_eu' | 'pro_ru' | 'centrist';
+    currentRating: number;
+    isPlayer?: boolean;
+};
+
 type NewsItem = {
     source: string;
     headline: string;
 };
 
 export default function MoldovaElectionGame() {
-    const [phase, setPhase] = useState<GamePhase>('selection');
+    const [phase, setPhase] = useState<GamePhase>('mode_selection');
+    const [gameMode, setGameMode] = useState<GameMode>('presidential');
     const [turn, setTurn] = useState(1);
     const [round2Turn, setRound2Turn] = useState(1);
     const [budget, setBudget] = useState(15);
     const [candidates, setCandidates] = useState<CandidateState[]>(
         ALL_CANDIDATES.map(c => ({ ...c, currentRating: c.baseRating }))
     );
+    const [parties, setParties] = useState<PartyState[]>(
+        ALL_PARTIES.map(p => ({ ...p, currentRating: p.baseRating }))
+    );
     const [activeCandidates, setActiveCandidates] = useState<CandidateState[]>([]);
+    const [activeParties, setActiveParties] = useState<PartyState[]>([]);
     const [playerCandidate, setPlayerCandidate] = useState<CandidateState | null>(null);
+    const [playerParty, setPlayerParty] = useState<PartyState | null>(null);
     const [newsFeed, setNewsFeed] = useState<NewsItem[]>([]);
     const [selectedRegion, setSelectedRegion] = useState('total');
     const [round1Results, setRound1Results] = useState<any[]>([]);
@@ -202,6 +304,24 @@ export default function MoldovaElectionGame() {
     // Helper function to get candidate name based on language
     const getCandidateName = (candidate: CandidateState): string => {
         return language === 'uk' ? candidate.nameUk : candidate.nameRu;
+    };
+
+    // Helper function to get party name based on language
+    const getPartyName = (party: PartyState): string => {
+        return language === 'uk' ? party.nameUk : party.nameRu;
+    };
+
+    const getPartyShortName = (party: PartyState): string => {
+        return language === 'uk' ? party.shortNameUk : party.shortNameRu;
+    };
+
+    // Helper function to get name from result (works with both candidates and parties)
+    const getNameFromResult = (result: any): string => {
+        if (result.nameUk && result.nameRu) {
+            return language === 'uk' ? result.nameUk : result.nameRu;
+        }
+        // Fallback to party name if structure is different
+        return result.party || result.name || 'Unknown';
     };
 
     // Helper functions
@@ -314,6 +434,127 @@ export default function MoldovaElectionGame() {
         return regionalResults;
     };
 
+    const calculatePartyResults = (participants: PartyState[]) => {
+        const regionalResults: { [region: string]: any[] } = {};
+        
+        const getRegionVoters = (regionKey: string): number => {
+            if (regionKey === 'diaspora') return DIASPORA_VOTERS;
+            const region = REGIONS[regionKey];
+            return Math.round(DOMESTIC_VOTERS * (region.population_weight || 0));
+        };
+        
+        const specificRegions = ['north', 'center', 'south', 'chisinau', 'gagauzia', 'diaspora'];
+        
+        // Calculate results for each specific region
+        specificRegions.forEach(regionKey => {
+            const region = REGIONS[regionKey];
+            let regionParties = [...participants];
+            
+            // Apply regional preferences (not for diaspora)
+            if (regionKey !== 'diaspora') {
+                const regionPrefs = region.preferences || {};
+                regionParties = regionParties.map(p => ({
+                    ...p,
+                    currentRating: p.currentRating * (regionPrefs[p.political_spectrum] || 1.0)
+                }));
+            }
+            
+            const regionVoters = getRegionVoters(regionKey);
+            
+            // Special statistics for Chisinau and diaspora
+            if (regionKey === 'chisinau' || regionKey === 'diaspora') {
+                const targetProEuPercentage = regionKey === 'chisinau' ? 53 : 62;
+                
+                const proEuParties = regionParties.filter(p => p.political_spectrum === 'pro_eu');
+                const otherParties = regionParties.filter(p => p.political_spectrum !== 'pro_eu');
+                
+                const proEuVotes = Math.round((targetProEuPercentage / 100) * regionVoters);
+                const otherVotes = regionVoters - proEuVotes;
+                
+                const proEuTotalRating = proEuParties.reduce((sum, p) => sum + p.currentRating, 0);
+                const otherTotalRating = otherParties.reduce((sum, p) => sum + p.currentRating, 0);
+                
+                const regionResults = [];
+                
+                // Distribute pro-EU votes
+                proEuParties.forEach(p => {
+                    regionResults.push({
+                        id: p.id,
+                        nameUk: p.nameUk,
+                        nameRu: p.nameRu,
+                        party: p.nameUk,
+                        logoSrc: p.logoSrc,
+                        color: p.color,
+                        percentage: (proEuVotes / regionVoters) * (p.currentRating / Math.max(proEuTotalRating, 0.01)) * 100,
+                        votes: proEuTotalRating > 0 ? Math.round((p.currentRating / proEuTotalRating) * proEuVotes) : 0
+                    });
+                });
+                
+                // Distribute other votes
+                otherParties.forEach(p => {
+                    regionResults.push({
+                        id: p.id,
+                        nameUk: p.nameUk,
+                        nameRu: p.nameRu,
+                        party: p.nameUk,
+                        logoSrc: p.logoSrc,
+                        color: p.color,
+                        percentage: (otherVotes / regionVoters) * (p.currentRating / Math.max(otherTotalRating, 0.01)) * 100,
+                        votes: otherTotalRating > 0 ? Math.round((p.currentRating / otherTotalRating) * otherVotes) : 0
+                    });
+                });
+                
+                regionalResults[regionKey] = regionResults.sort((a, b) => b.votes - a.votes);
+            } else {
+                // Normal calculation for other regions
+                const regionTotalRating = regionParties.reduce((sum, p) => sum + p.currentRating, 0);
+                
+                const regionResults = regionParties
+                    .map(p => ({
+                        id: p.id,
+                        nameUk: p.nameUk,
+                        nameRu: p.nameRu,
+                        party: p.nameUk,
+                        logoSrc: p.logoSrc,
+                        color: p.color,
+                        percentage: regionTotalRating > 0 ? (p.currentRating / regionTotalRating) * 100 : 0,
+                        votes: regionTotalRating > 0 ? Math.round((p.currentRating / regionTotalRating) * regionVoters) : 0
+                    }))
+                    .sort((a, b) => b.votes - a.votes);
+            
+                regionalResults[regionKey] = regionResults;
+            }
+        });
+        
+        // Calculate 'total' by summing votes from all specific regions
+        const totalAllVoters = DOMESTIC_VOTERS + DIASPORA_VOTERS;
+        const partyMap = new Map();
+        
+        participants.forEach(p => {
+            partyMap.set(p.id, { id: p.id, nameUk: p.nameUk, nameRu: p.nameRu, party: p.nameUk, logoSrc: p.logoSrc, color: p.color, votes: 0 });
+        });
+        
+        specificRegions.forEach(regionKey => {
+            regionalResults[regionKey].forEach(res => {
+                const party = partyMap.get(res.id);
+                if (party) {
+                    party.votes += res.votes;
+                }
+            });
+        });
+        
+        const totalResults = Array.from(partyMap.values())
+            .map(p => ({
+                ...p,
+                percentage: (p.votes / totalAllVoters) * 100
+            }))
+            .sort((a, b) => b.percentage - a.percentage);
+        
+        regionalResults['total'] = totalResults;
+        
+        return regionalResults;
+    };
+
     const generateNews = () => {
         const newsSources = Object.keys(MEDIA_OUTLETS);
         const usedSources = new Set<string>();
@@ -417,7 +658,9 @@ export default function MoldovaElectionGame() {
 
         setBudget(prev => prev - action.cost);
         let ratingChange = 0;
+        const isParliament = phase === 'parliament_campaign';
         let updatedCandidates = phase === 'round2_campaign' ? [...round2Candidates] : [...activeCandidates];
+        let updatedParties = isParliament ? [...activeParties] : [];
 
         switch (action.id) {
             case 'ads': ratingChange = 0.5 + Math.random(); break;
@@ -425,16 +668,31 @@ export default function MoldovaElectionGame() {
             case 'debate': ratingChange = Math.random() * 5 - 3; break;
             case 'fundraising': setBudget(prev => prev + Math.round(2 + Math.random() * 2)); return;
             case 'black_pr': {
-                const opponents = updatedCandidates
-                    .filter(c => !c.isPlayer)
-                    .sort((a, b) => b.currentRating - a.currentRating);
-                if (opponents.length > 0) {
-                    const targetIdx = updatedCandidates.findIndex(c => c.id === opponents[0].id);
-                    if (targetIdx >= 0) {
-                        updatedCandidates[targetIdx] = {
-                            ...updatedCandidates[targetIdx],
-                            currentRating: Math.max(1, updatedCandidates[targetIdx].currentRating - (0.8 + Math.random() * 1.8))
-                        };
+                if (isParliament) {
+                    const opponents = updatedParties
+                        .filter(p => !p.isPlayer)
+                        .sort((a, b) => b.currentRating - a.currentRating);
+                    if (opponents.length > 0) {
+                        const targetIdx = updatedParties.findIndex(p => p.id === opponents[0].id);
+                        if (targetIdx >= 0) {
+                            updatedParties[targetIdx] = {
+                                ...updatedParties[targetIdx],
+                                currentRating: Math.max(1, updatedParties[targetIdx].currentRating - (0.8 + Math.random() * 1.8))
+                            };
+                        }
+                    }
+                } else {
+                    const opponents = updatedCandidates
+                        .filter(c => !c.isPlayer)
+                        .sort((a, b) => b.currentRating - a.currentRating);
+                    if (opponents.length > 0) {
+                        const targetIdx = updatedCandidates.findIndex(c => c.id === opponents[0].id);
+                        if (targetIdx >= 0) {
+                            updatedCandidates[targetIdx] = {
+                                ...updatedCandidates[targetIdx],
+                                currentRating: Math.max(1, updatedCandidates[targetIdx].currentRating - (0.8 + Math.random() * 1.8))
+                            };
+                        }
                     }
                 }
                 break;
@@ -442,17 +700,34 @@ export default function MoldovaElectionGame() {
             case 'reforms': ratingChange = 1.5 + Math.random() * 1.5; break;
         }
 
-        if (playerCandidate && ratingChange !== 0) {
-            const playerIdx = updatedCandidates.findIndex(c => c.id === playerCandidate.id);
-            if (playerIdx >= 0) {
-                updatedCandidates[playerIdx] = {
-                    ...updatedCandidates[playerIdx],
-                    currentRating: updatedCandidates[playerIdx].currentRating + ratingChange
-                };
+        if (ratingChange !== 0) {
+            if (isParliament && playerParty) {
+                const playerIdx = updatedParties.findIndex(p => p.id === playerParty.id);
+                if (playerIdx >= 0) {
+                    updatedParties[playerIdx] = {
+                        ...updatedParties[playerIdx],
+                        currentRating: updatedParties[playerIdx].currentRating + ratingChange
+                    };
+                }
+            } else if (playerCandidate) {
+                const playerIdx = updatedCandidates.findIndex(c => c.id === playerCandidate.id);
+                if (playerIdx >= 0) {
+                    updatedCandidates[playerIdx] = {
+                        ...updatedCandidates[playerIdx],
+                        currentRating: updatedCandidates[playerIdx].currentRating + ratingChange
+                    };
+                }
             }
         }
 
-        if (phase === 'campaign') {
+        if (isParliament) {
+            if (turn >= 10) {
+                return;
+            } else {
+                setActiveParties(updatedParties);
+                setTurn(prev => prev + 1);
+            }
+        } else if (phase === 'campaign') {
             if (turn >= 10) {
                 // Don't auto-transition, user clicks button
                 return;
@@ -474,21 +749,45 @@ export default function MoldovaElectionGame() {
     };
 
     const resetGame = () => {
-        setPhase('selection');
+        setPhase('mode_selection');
+        setGameMode('presidential');
         setTurn(1);
         setRound2Turn(1);
         setBudget(15);
         setNewsFeed([]);
         const newCandidates = ALL_CANDIDATES.map(c => ({ ...c, currentRating: c.baseRating, isPlayer: false }));
+        const newParties = ALL_PARTIES.map(p => ({ ...p, currentRating: p.baseRating, isPlayer: false }));
         setCandidates(newCandidates);
+        setParties(newParties);
         setActiveCandidates([]);
+        setActiveParties([]);
         setPlayerCandidate(null);
+        setPlayerParty(null);
         setSelectedRegion('total');
     };
 
     const handleRound1Results = () => {
         const totalResults = round1Results['total'] || [];
         const winner = totalResults[0];
+        
+        // Parliamentary mode - no second round
+        if (gameMode === 'parliamentary') {
+            const winnerParty = totalResults[0];
+            if (winnerParty) {
+                const isPlayerWinner = winnerParty.id === playerParty?.id;
+                setFinalMessage(
+                    isPlayerWinner 
+                        ? `${getPartyName(winnerParty as any)} перемагає на парламентських виборах з результатом ${winnerParty.percentage.toFixed(2)}%!`
+                        : `${getPartyName(winnerParty as any)} перемагає на парламентських виборах. Ваша партія: ${winnerParty.percentage.toFixed(2)}%`
+                );
+                setIsWinnerState(isPlayerWinner);
+                setFinalNews({ source: 'Moldova 1', headline: `${winnerParty.party} виграє парламентські вибори` });
+                setPhase('final_screen');
+            }
+            return;
+        }
+        
+        // Presidential mode
         if (winner && winner.percentage > 50) {
             setFinalMessage(`${getCandidateName(winner)} перемагає у першому турі з результатом ${winner.percentage.toFixed(2)}%!`);
             setIsWinnerState(winner.id === playerCandidate?.id);
@@ -539,6 +838,194 @@ export default function MoldovaElectionGame() {
                     <div className="mt-8">
                         <Progress value={50} className="w-full h-2 mb-4" />
                         <p className="text-xs text-slate-600">{TRANSLATIONS[language].loadingPercent}</p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    // Game mode selection screen
+    if (phase === 'mode_selection') {
+        return (
+            <div className="min-h-screen bg-white p-6 relative">
+                <div className="max-w-4xl mx-auto relative z-10">
+                    <div className="flex justify-end mb-6 gap-2">
+                        <button 
+                            onClick={() => setLanguage('uk')}
+                            className={`px-4 py-2 rounded-lg font-bold transition-all ${language === 'uk' ? 'bg-blue-600 text-white' : 'bg-slate-200 text-slate-900 hover:bg-slate-300'}`}
+                        >
+                            UA
+                        </button>
+                        <button 
+                            onClick={() => setLanguage('ru')}
+                            className={`px-4 py-2 rounded-lg font-bold transition-all ${language === 'ru' ? 'bg-blue-600 text-white' : 'bg-slate-200 text-slate-900 hover:bg-slate-300'}`}
+                        >
+                            RU
+                        </button>
+                    </div>
+                    <div className="text-center mb-12">
+                        <div className="flex items-center justify-center gap-3 mb-6">
+                            <img 
+                                src="/photo/Coat_of_arms_of_Moldova.png" 
+                                alt="Герб Молдови" 
+                                className="w-20 h-20 object-contain"
+                            />
+                        </div>
+                        <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-4 tracking-tight">{TRANSLATIONS[language].selectGameMode}</h1>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {/* Presidential Elections */}
+                        <button
+                            onClick={() => {
+                                setGameMode('presidential');
+                                setPhase('selection');
+                            }}
+                            className="group cursor-pointer transform transition-all duration-300 hover:-translate-y-3"
+                        >
+                            <div className="relative bg-white rounded-3xl shadow-lg hover:shadow-2xl border-2 border-slate-200 overflow-hidden transition-all duration-300 p-8 h-full">
+                                <div className="flex flex-col items-center text-center gap-4">
+                                    <div className="text-6xl mb-2">👔</div>
+                                    <h2 className="text-2xl font-black text-slate-900">{TRANSLATIONS[language].presidential}</h2>
+                                    <p className="text-slate-600 font-medium">2028</p>
+                                    <div className="mt-4">
+                                        <p className="text-sm text-slate-500 mb-3">{language === 'uk' ? 'Вибирайте кандидатів і проходьте через два тури' : 'Выбирайте кандидатов и проходите через два тура'}</p>
+                                        <Button className="bg-slate-700 hover:bg-slate-800 text-white w-full py-3 rounded-xl font-bold">{TRANSLATIONS[language].choose}</Button>
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+
+                        {/* Parliamentary Elections */}
+                        <button
+                            onClick={() => {
+                                setGameMode('parliamentary');
+                                setPhase('party_selection');
+                            }}
+                            className="group cursor-pointer transform transition-all duration-300 hover:-translate-y-3"
+                        >
+                            <div className="relative bg-white rounded-3xl shadow-lg hover:shadow-2xl border-2 border-slate-200 overflow-hidden transition-all duration-300 p-8 h-full">
+                                <div className="flex flex-col items-center text-center gap-4">
+                                    <div className="text-6xl mb-2">🏛️</div>
+                                    <h2 className="text-2xl font-black text-slate-900">{TRANSLATIONS[language].parliamentary}</h2>
+                                    <p className="text-slate-600 font-medium">2025</p>
+                                    <div className="mt-4">
+                                        <p className="text-sm text-slate-500 mb-3">{language === 'uk' ? 'Вибирайте партії і змагайтеся в парламенті' : 'Выбирайте партии и соревнуйтесь в парламенте'}</p>
+                                        <Button className="bg-slate-700 hover:bg-slate-800 text-white w-full py-3 rounded-xl font-bold">{TRANSLATIONS[language].choose}</Button>
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    // Party selection screen for parliamentary elections
+    if (phase === 'party_selection') {
+        const sortedParties = [...parties].sort((a, b) => b.baseRating - a.baseRating);
+        const maxRating = Math.max(...sortedParties.map(p => p.baseRating));
+        
+        return (
+            <div className="min-h-screen bg-white p-6 relative">
+                <div className="max-w-7xl mx-auto relative z-10">
+                    <div className="flex justify-end mb-6 gap-2">
+                        <button 
+                            onClick={() => setLanguage('uk')}
+                            className={`px-4 py-2 rounded-lg font-bold transition-all ${language === 'uk' ? 'bg-blue-600 text-white' : 'bg-slate-200 text-slate-900 hover:bg-slate-300'}`}
+                        >
+                            UA
+                        </button>
+                        <button 
+                            onClick={() => setLanguage('ru')}
+                            className={`px-4 py-2 rounded-lg font-bold transition-all ${language === 'ru' ? 'bg-blue-600 text-white' : 'bg-slate-200 text-slate-900 hover:bg-slate-300'}`}
+                        >
+                            RU
+                        </button>
+                    </div>
+                    <div className="text-center mb-8">
+                        <div className="flex items-center justify-center gap-3 mb-4">
+                            <img 
+                                src="/photo/Coat_of_arms_of_Moldova.png" 
+                                alt="Герб Молдови" 
+                                className="w-16 h-16 object-contain"
+                            />
+                        </div>
+                        <h1 className="text-3xl md:text-6xl font-bold text-slate-900 mb-2 tracking-tight">{TRANSLATIONS[language].parliamentTitle}</h1>
+                        <p className="text-xl text-slate-600 font-medium">{TRANSLATIONS[language].selectParty}</p>
+                    </div>
+
+                    {/* Cards Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {sortedParties.map(party => (
+                            <button
+                                key={party.id}
+                                onClick={() => {
+                                    const newParties = parties.map(p => ({ ...p, isPlayer: p.id === party.id }));
+                                    setParties(newParties);
+                                    setPlayerParty(newParties.find(p => p.id === party.id)!);
+                                    const active = newParties; // All parties participate in parliamentary elections
+                                    setActiveParties(active);
+                                    setPhase('parliament_campaign');
+                                }}
+                                className="group cursor-pointer transform transition-all duration-300 hover:-translate-y-2"
+                            >
+                                <div className="relative bg-white rounded-3xl shadow-md hover:shadow-2xl border border-slate-200 overflow-hidden transition-all duration-300 flex flex-col h-full">
+                                    <div className="h-40 bg-gradient-to-br from-slate-100 to-slate-200 relative overflow-hidden flex items-center justify-center">
+                                        <div className="absolute inset-0 opacity-30" style={{ backgroundImage: `linear-gradient(135deg, ${party.color}20 0%, ${party.color}05 100%)` }}></div>
+                                        <img 
+                                            src={party.logoSrc} 
+                                            alt={party.nameUk} 
+                                            className="w-32 h-32 object-contain relative z-10"
+                                        />
+                                    </div>
+                                    
+                                    <div className="flex-1 p-5 flex flex-col justify-between">
+                                        <div>
+                                            <h3 className="text-lg font-black text-slate-900 group-hover:text-blue-600 transition-all text-center mb-2 leading-tight">
+                                                {getPartyName(party)}
+                                            </h3>
+                                            <div className="flex items-center justify-center gap-2 mb-3">
+                                                <p className="text-xs text-slate-600 font-semibold">{getPartyShortName(party)}</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div className="space-y-3 pt-3 border-t border-slate-100">
+                                            <div className="flex flex-col items-center justify-center gap-2">
+                                                <p className="text-xs text-slate-600 font-medium">
+                                                    {
+                                                        party.political_spectrum === 'pro_eu' ? TRANSLATIONS[language].proEu :
+                                                        party.political_spectrum === 'pro_ru' ? TRANSLATIONS[language].proRu :
+                                                        TRANSLATIONS[language].centrist
+                                                    }
+                                                </p>
+                                                <div className="text-center">
+                                                    <p className="text-xs text-slate-600 font-bold">{TRANSLATIONS[language].rating_label}</p>
+                                                    <p className="text-2xl font-black text-slate-900">{party.baseRating}%</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                                                <div 
+                                                    className="h-full transition-all duration-500 rounded-full"
+                                                    style={{ 
+                                                        width: `${(party.baseRating / maxRating) * 100}%`,
+                                                        backgroundColor: party.color || '#64748b'
+                                                    }}
+                                                ></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="px-5 pb-5">
+                                        <div className="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold py-3 px-4 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg">
+                                            {TRANSLATIONS[language].choose}
+                                        </div>
+                                    </div>
+                                </div>
+                            </button>
+                        ))}
                     </div>
                 </div>
             </div>
@@ -703,9 +1190,12 @@ export default function MoldovaElectionGame() {
         );
     }
 
-    if (phase === 'campaign' || phase === 'round2_campaign') {
+    if (phase === 'campaign' || phase === 'round2_campaign' || phase === 'parliament_campaign') {
         const isRound2 = phase === 'round2_campaign';
+        const isParliament = phase === 'parliament_campaign';
         const currentCandidates = isRound2 ? round2Candidates : activeCandidates;
+        const currentParties = isParliament ? activeParties : [];
+        const currentParticipants = isParliament ? activeParties : activeCandidates;
         const currentTurn = isRound2 ? round2Turn : turn;
         const maxTurns = isRound2 ? 3 : 10;
         const availableActions = actions.filter(a => !a.availability || a.availability.includes(playerCandidate?.political_spectrum || 'pro_eu'));
@@ -733,14 +1223,27 @@ export default function MoldovaElectionGame() {
                             )}
                         </div>
                         
-                        {playerCandidate && (
+                        {(playerCandidate || playerParty) && (
                             <div className="flex items-center gap-2 pt-3 border-t border-slate-200 mt-3">
-                                <img src={playerCandidate.photoSrc} alt={playerCandidate.name}
-                                     className="w-10 h-10 rounded-full border-2 border-slate-200 object-cover shadow-md" />
-                                <div>
-                                    <p className="font-bold text-sm text-slate-900">{playerCandidate.name}</p>
-                                    <p className="text-xs text-slate-600 font-bold">{playerCandidate.party}</p>
-                                </div>
+                                {isParliament && playerParty ? (
+                                    <>
+                                        <img src={playerParty.logoSrc} alt={getPartyName(playerParty)}
+                                             className="w-10 h-10 border-2 border-slate-200 object-contain shadow-md" />
+                                        <div>
+                                            <p className="font-bold text-sm text-slate-900">{getPartyName(playerParty)}</p>
+                                            <p className="text-xs text-slate-600 font-bold">{getPartyShortName(playerParty)}</p>
+                                        </div>
+                                    </>
+                                ) : playerCandidate ? (
+                                    <>
+                                        <img src={playerCandidate.photoSrc} alt={getCandidateName(playerCandidate)}
+                                             className="w-10 h-10 rounded-full border-2 border-slate-200 object-cover shadow-md" />
+                                        <div>
+                                            <p className="font-bold text-sm text-slate-900">{getCandidateName(playerCandidate)}</p>
+                                            <p className="text-xs text-slate-600 font-bold">{playerCandidate.party}</p>
+                                        </div>
+                                    </>
+                                ) : null}
                             </div>
                         )}
                     </div>
@@ -755,19 +1258,25 @@ export default function MoldovaElectionGame() {
                                     <p className="text-slate-600 font-bold text-center text-sm">{TRANSLATIONS[language].campaignEnded}</p>
                                     <Button 
                                         onClick={() => {
-                                            const results = calculateResults(currentCandidates, isRound2);
-                                            if (isRound2) {
-                                                setRound2Results(results);
-                                                setPhase('round2_results');
-                                            } else {
+                                            if (isParliament) {
+                                                const results = calculatePartyResults(activeParties);
                                                 setRound1Results(results);
                                                 setPhase('round1_results');
+                                            } else {
+                                                const results = calculateResults(currentCandidates, isRound2);
+                                                if (isRound2) {
+                                                    setRound2Results(results);
+                                                    setPhase('round2_results');
+                                                } else {
+                                                    setRound1Results(results);
+                                                    setPhase('round1_results');
+                                                }
                                             }
                                             setSelectedRegion('total');
                                         }}
                                         className="bg-slate-700 hover:bg-slate-800 text-white px-4 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 font-bold text-sm w-full"
                                     >
-                                        {isRound2 ? TRANSLATIONS[language].proceedToSummary : TRANSLATIONS[language].proceedToResults}
+                                        {isParliament ? TRANSLATIONS[language].proceedToSummary : (isRound2 ? TRANSLATIONS[language].proceedToSummary : TRANSLATIONS[language].proceedToResults)}
                                     </Button>
                                 </div>
                             ) : (
@@ -801,14 +1310,16 @@ export default function MoldovaElectionGame() {
                             <h2 className="text-base font-bold text-slate-900 mb-3 flex-shrink-0">{TRANSLATIONS[language].rating}</h2>
                             <div className="space-y-2 overflow-y-auto flex-1">
                                 {(() => {
-                                    const allRatings = (calculateResults(currentCandidates)['total'] || []).sort((a, b) => b.percentage - a.percentage);
+                                    const allRatings = isParliament 
+                                        ? (calculatePartyResults(activeParties)['total'] || []).sort((a, b) => b.percentage - a.percentage)
+                                        : (calculateResults(currentCandidates)['total'] || []).sort((a, b) => b.percentage - a.percentage);
                                     const maxPercentage = Math.max(...allRatings.map(r => r.percentage), 1);
                                     return allRatings.map(res => (
                                         <div key={res.id} className="text-sm">
                                             <div className="flex items-center justify-between mb-1">
                                                 <div className="flex items-center gap-1 flex-1 min-w-0">
                                                     <img src={res.logoSrc} alt={res.party} className="w-3 h-3 object-contain flex-shrink-0" />
-                                                    <span className="font-bold text-slate-900 truncate">{getCandidateName(res)}</span>
+                                                    <span className="font-bold text-slate-900 truncate">{getNameFromResult(res)}</span>
                                                 </div>
                                                 <span className="font-black text-slate-900 ml-1 flex-shrink-0 text-sm">{res.percentage.toFixed(1)}%</span>
                                             </div>
@@ -897,7 +1408,7 @@ export default function MoldovaElectionGame() {
                                             >
                                                 <div className="font-bold text-xs truncate">{language === 'uk' ? region.nameUk : region.nameRu}</div>
                                                 <div className={`text-xs mt-0.5 ${selectedRegion === key ? 'text-slate-200' : 'text-slate-600'}`}>
-                                                    {getCandidateName(topResult)?.split(' ').pop()}: <span className="font-bold">{percentage}%</span>
+                                                    {getNameFromResult(topResult)?.split(' ').pop() || 'N/A'}: <span className="font-bold">{percentage}%</span>
                                                 </div>
                                             </button>
                                         );
@@ -927,7 +1438,7 @@ export default function MoldovaElectionGame() {
                                                 
                                                 {/* Name and Stats */}
                                                 <div className="flex-1 min-w-0">
-                                                    <p className="font-bold text-xs md:text-sm text-slate-900 break-words">{getCandidateName(res)}</p>
+                                                    <p className="font-bold text-xs md:text-sm text-slate-900 break-words">{getNameFromResult(res)}</p>
                                                     <p className="text-xs md:text-sm text-slate-600 font-semibold">
                                                         <span className="font-black text-slate-900">{res.percentage.toFixed(2)}%</span> ({res.votes.toLocaleString('uk-UA')})
                                                     </p>
