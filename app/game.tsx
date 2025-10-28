@@ -974,11 +974,13 @@ export default function MoldovaElectionGame() {
                                 <div className="relative bg-white rounded-3xl shadow-md hover:shadow-2xl border border-slate-200 overflow-hidden transition-all duration-300 flex flex-col h-full">
                                     <div className="h-40 bg-gradient-to-br from-slate-100 to-slate-200 relative overflow-hidden flex items-center justify-center">
                                         <div className="absolute inset-0 opacity-30" style={{ backgroundImage: `linear-gradient(135deg, ${party.color}20 0%, ${party.color}05 100%)` }}></div>
-                                        <img 
-                                            src={party.logoSrc} 
-                                            alt={party.nameUk} 
-                                            className="w-32 h-32 object-contain relative z-10"
-                                        />
+                                        <div className="w-32 h-32 rounded-full bg-white border-4 border-white shadow-lg relative z-10 flex items-center justify-center overflow-hidden">
+                                            <img 
+                                                src={party.logoSrc} 
+                                                alt={party.nameUk} 
+                                                className="w-full h-full object-contain p-2"
+                                            />
+                                        </div>
                                     </div>
                                     
                                     <div className="flex-1 p-5 flex flex-col justify-between">
