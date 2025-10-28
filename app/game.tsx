@@ -50,52 +50,52 @@ const ALL_PARTIES: PartyBase[] = [
         id: 'pas', 
         nameUk: 'Дія та солідарність', 
         nameRu: 'Действие и солидарность',
-        shortNameUk: 'PAS',
-        shortNameRu: 'PAS',
+        shortNameUk: 'Partidul Acțiune și Solidaritate',
+        shortNameRu: 'Partidul Acțiune și Solidaritate',
         logoSrc: '/party-logos/PAS.png',
         color: '#FFDD00',
-        baseRating: 50,
+        baseRating: 40,
         political_spectrum: 'pro_eu'
     },
     { 
         id: 'pib', 
         nameUk: 'Патріотичний блок', 
         nameRu: 'Патриотический блок',
-        shortNameUk: 'ПИБ',
-        shortNameRu: 'ПИБ',
+        shortNameUk: 'Blocul Electoral Patriotic',
+        shortNameRu: 'Blocul Electoral Patriotic',
         logoSrc: '/party-logos/BEP.png',
         color: '#DF2224',
-        baseRating: 24,
+        baseRating: 26,
         political_spectrum: 'pro_ru'
     },
     { 
         id: 'alternativa', 
         nameUk: 'Альтернатива', 
         nameRu: 'Альтернатива',
-        shortNameUk: 'БА',
-        shortNameRu: 'БА',
+        shortNameUk: 'Blocul "Alternativa"',
+        shortNameRu: 'Blocul "Alternativa"',
         logoSrc: '/party-logos/Alternativa.png',
         color: '#009A7D',
-        baseRating: 8,
+        baseRating: 10,
         political_spectrum: 'centrist'
     },
     { 
         id: 'nostru', 
         nameUk: 'Наша партія', 
         nameRu: 'Наша партия',
-        shortNameUk: 'НП',
-        shortNameRu: 'НП',
+        shortNameUk: 'Partidul Nostru',
+        shortNameRu: 'Partidul Nostru',
         logoSrc: '/party-logos/Nostru.png',
         color: '#2680FA',
-        baseRating: 6,
+        baseRating: 8,
         political_spectrum: 'centrist'
     },
     { 
         id: 'democratia', 
         nameUk: 'Демократія вдома', 
         nameRu: 'Демократия дома',
-        shortNameUk: 'ДД',
-        shortNameRu: 'ДД',
+        shortNameUk: 'Democrația Acasă',
+        shortNameRu: 'Democrația Acasă',
         logoSrc: '/party-logos/DA.png',
         color: '#24247A',
         baseRating: 5,
@@ -1368,7 +1368,10 @@ export default function MoldovaElectionGame() {
     if (phase === 'round1_results' || phase === 'round2_results') {
         const allResults = phase === 'round1_results' ? round1Results : round2Results;
         const title = phase === 'round1_results' ? TRANSLATIONS[language].round1Results : TRANSLATIONS[language].round2Results;
-        const buttonText = phase === 'round1_results' ? TRANSLATIONS[language].proceedRound2 : TRANSLATIONS[language].seeSummary;
+        // For parliamentary mode, show "Show results" instead of "Proceed to second round"
+        const buttonText = gameMode === 'parliamentary' && phase === 'round1_results' 
+            ? TRANSLATIONS[language].seeSummary 
+            : (phase === 'round1_results' ? TRANSLATIONS[language].proceedRound2 : TRANSLATIONS[language].seeSummary);
         
         // Get results for selected region
         const results = allResults[selectedRegion] || allResults['total'] || [];
