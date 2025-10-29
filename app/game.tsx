@@ -293,6 +293,7 @@ export default function MoldovaElectionGame() {
     const [candidatesForRivalChoice, setCandidatesForRivalChoice] = useState<CandidateState[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [language, setLanguage] = useState('uk'); // Default to 'uk'
+    const [fundraisingUses, setFundraisingUses] = useState(0); // Лічильник використань "Збір коштів" за хід
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -650,11 +651,17 @@ export default function MoldovaElectionGame() {
         if (rivalToRemove) {
             setActiveCandidates(prev => prev.filter(c => c.id !== rivalToRemove.id));
         }
+        setFundraisingUses(0); // Скидаємо лічильник при початку кампанії
         setPhase('campaign');
     };
+<｜tool▁calls▁begin｜><｜tool▁call▁begin｜>
+read_file
 
     const performAction = (action: typeof actions[0]) => {
         if (budget < action.cost && action.cost > 0) return;
+        
+        // Перевірка ліміту для "Збір коштів" (максимум 2 рази за хід)
+        if (action.id === 'fundraising' && fundraisingUses >= 2) return;
 
         setBudget(prev => prev - action.cost);
         let ratingChange = 0;
@@ -666,7 +673,10 @@ export default function MoldovaElectionGame() {
             case 'ads': ratingChange = 0.5 + Math.random(); break;
             case 'meeting': ratingChange = 0.3 + Math.random() * 1.5; break;
             case 'debate': ratingChange = Math.random() * 5 - 3; break;
-            case 'fundraising': setBudget(prev => prev + Math.round(2 + Math.random() * 2)); return;
+            case 'fundraising': 
+                setBudget(prev => prev + Math.round(2 + Math.random() * 2));
+                setFundraisingUses(prev => prev + 1);
+                return;
             case 'black_pr': {
                 if (isParliament) {
                     const opponents = updatedParties
@@ -726,6 +736,7 @@ export default function MoldovaElectionGame() {
             } else {
                 setActiveParties(updatedParties);
                 setTurn(prev => prev + 1);
+                setFundraisingUses(0); // Скидаємо лічильник при переході до наступного ходу
             }
         } else if (phase === 'campaign') {
             if (turn >= 10) {
@@ -734,6 +745,7 @@ export default function MoldovaElectionGame() {
             } else {
                 setActiveCandidates(updatedCandidates);
                 setTurn(prev => prev + 1);
+                setFundraisingUses(0); // Скидаємо лічильник при переході до наступного ходу
             }
         } else if (phase === 'round2_campaign') {
             if (round2Turn >= 3) {
@@ -742,6 +754,7 @@ export default function MoldovaElectionGame() {
             } else {
                 setRound2Candidates(updatedCandidates);
                 setRound2Turn(prev => prev + 1);
+                setFundraisingUses(0); // Скидаємо лічильник при переході до наступного ходу
             }
         }
 
@@ -755,6 +768,7 @@ export default function MoldovaElectionGame() {
         setRound2Turn(1);
         setBudget(15);
         setNewsFeed([]);
+        setFundraisingUses(0); // Скидаємо лічильник при скиданні гри
         const newCandidates = ALL_CANDIDATES.map(c => ({ ...c, currentRating: c.baseRating, isPlayer: false }));
         const newParties = ALL_PARTIES.map(p => ({ ...p, currentRating: p.baseRating, isPlayer: false }));
         setCandidates(newCandidates);
@@ -802,6 +816,7 @@ export default function MoldovaElectionGame() {
                     activeCandidates.find(c => c.id === c2_res.id)!
                 ]);
                 setRound2Turn(1);
+                setFundraisingUses(0); // Скидаємо лічильник при початку другого туру
                 setPhase('round2_campaign');
             } else {
                 setFinalMessage(TRANSLATIONS[language].notAdvanced);
@@ -967,6 +982,7 @@ export default function MoldovaElectionGame() {
                                     setPlayerParty(newParties.find(p => p.id === party.id)!);
                                     const active = newParties; // All parties participate in parliamentary elections
                                     setActiveParties(active);
+                                    setFundraisingUses(0); // Скидаємо лічильник при початку парламентської кампанії
                                     setPhase('parliament_campaign');
                                 }}
                                 className="group cursor-pointer transform transition-all duration-300 hover:-translate-y-2"
@@ -1283,26 +1299,37 @@ export default function MoldovaElectionGame() {
                                 </div>
                             ) : (
                             <div className="space-y-1.5 overflow-y-auto flex-1">
-                                {availableActions.map(action => (
-                                    <Button
-                                        key={action.id}
-                                        onClick={() => performAction(action)}
-                                        disabled={budget < action.cost && action.cost > 0}
-                                        className={`w-full justify-start text-left h-auto py-1.5 px-2 rounded-lg transition-all duration-300 text-xs ${
-                                            budget < action.cost && action.cost > 0
-                                                ? 'bg-slate-100 text-slate-400'
-                                                : 'bg-slate-700 hover:bg-slate-800 text-white shadow-md hover:shadow-lg'
-                                        }`}
-                                    >
-                                        <div className="flex flex-col items-start gap-0.5 w-full">
-                                            <span className="font-bold text-xs">{language === 'uk' ? action.titleUk : action.titleRu}</span>
-                                            <span className="text-xs opacity-90 line-clamp-1">{language === 'uk' ? action.descUk : action.descRu}</span>
-                                            <span className={`text-xs font-bold ${action.cost > 0 ? 'text-red-300' : 'text-green-300'}`}>
-                                                {action.cost > 0 ? `- $${action.cost.toFixed(1)}M` : `+ $${Math.abs(action.cost).toFixed(1)}M`}
-                                            </span>
-                                        </div>
-                                    </Button>
-                                ))}
+                                {availableActions.map(action => {
+                                    const isFundraisingLimited = action.id === 'fundraising' && fundraisingUses >= 2;
+                                    const isDisabled = (budget < action.cost && action.cost > 0) || isFundraisingLimited;
+                                    return (
+                                        <Button
+                                            key={action.id}
+                                            onClick={() => performAction(action)}
+                                            disabled={isDisabled}
+                                            className={`w-full justify-start text-left h-auto py-1.5 px-2 rounded-lg transition-all duration-300 text-xs ${
+                                                isDisabled
+                                                    ? 'bg-slate-100 text-slate-400'
+                                                    : 'bg-slate-700 hover:bg-slate-800 text-white shadow-md hover:shadow-lg'
+                                            }`}
+                                        >
+                                            <div className="flex flex-col items-start gap-0.5 w-full">
+                                                <span className="font-bold text-xs">{language === 'uk' ? action.titleUk : action.titleRu}</span>
+                                                <span className="text-xs opacity-90 line-clamp-1">
+                                                    {language === 'uk' ? action.descUk : action.descRu}
+                                                    {action.id === 'fundraising' && (
+                                                        <span className="ml-1 text-xs opacity-75">
+                                                            ({fundraisingUses}/2)
+                                                        </span>
+                                                    )}
+                                                </span>
+                                                <span className={`text-xs font-bold ${action.cost > 0 ? 'text-red-300' : 'text-green-300'}`}>
+                                                    {action.cost > 0 ? `- $${action.cost.toFixed(1)}M` : `+ $${Math.abs(action.cost).toFixed(1)}M`}
+                                                </span>
+                                            </div>
+                                        </Button>
+                                    );
+                                })}
                             </div>
                             )}
                         </div>
