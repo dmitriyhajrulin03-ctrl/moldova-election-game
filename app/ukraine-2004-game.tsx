@@ -31,36 +31,31 @@ type PartyBase = {
     political_spectrum: 'pro_eu' | 'pro_ru' | 'centrist';
 };
 
-const wikiImage = (path: string, size: number) => {
-    const fileName = path.split('/').pop();
-    return `https://upload.wikimedia.org/wikipedia/commons/thumb/${path}/${size}px-${fileName}`;
-};
-
 const ALL_CANDIDATES: CandidateBase[] = [
-    { id: 'yushchenko', nameUk: 'Віктор Ющенко', nameRu: 'Виктор Ющенко', party: 'Самовисування', logoSrc: wikiImage('8/8b/Viktor_Yushchenko_cropped.jpg', 64), photoSrc: wikiImage('8/8b/Viktor_Yushchenko_cropped.jpg', 256), color: '#F97316', baseRating: 39.9, political_spectrum: 'pro_eu' },
-    { id: 'yanukovych', nameUk: 'Віктор Янукович', nameRu: 'Виктор Янукович', party: 'Партія регіонів', logoSrc: wikiImage('3/3b/Viktor_Yanukovych_%282010-11-22%29.jpg', 64), photoSrc: wikiImage('3/3b/Viktor_Yanukovych_%282010-11-22%29.jpg', 256), color: '#1D4ED8', baseRating: 39.26, political_spectrum: 'pro_ru' },
-    { id: 'moroz', nameUk: 'Олександр Мороз', nameRu: 'Александр Мороз', party: 'Соціалістична партія України', logoSrc: wikiImage('a/a7/Oleksandr_Moroz_2005.jpg', 64), photoSrc: wikiImage('a/a7/Oleksandr_Moroz_2005.jpg', 256), color: '#16A34A', baseRating: 5.82, political_spectrum: 'centrist' },
-    { id: 'symonenko', nameUk: 'Петро Симоненко', nameRu: 'Пётр Симоненко', party: 'Комуністична партія України', logoSrc: wikiImage('5/5d/Petro_Symonenko_2009.jpg', 64), photoSrc: wikiImage('5/5d/Petro_Symonenko_2009.jpg', 256), color: '#DC2626', baseRating: 4.97, political_spectrum: 'pro_ru' },
-    { id: 'vitrenko', nameUk: 'Наталія Вітренко', nameRu: 'Наталия Витренко', party: 'Прогресивна соціалістична партія України', logoSrc: wikiImage('0/0e/Nataliya_Vitrenko_2012-11-23.jpg', 64), photoSrc: wikiImage('0/0e/Nataliya_Vitrenko_2012-11-23.jpg', 256), color: '#991B1B', baseRating: 1.53, political_spectrum: 'pro_ru' },
-    { id: 'kinakh', nameUk: 'Анатолій Кінах', nameRu: 'Анатолий Кинах', party: 'Партія промисловців і підприємців', logoSrc: wikiImage('8/8d/Anatoliy_Kinakh_2020.jpg', 64), photoSrc: wikiImage('8/8d/Anatoliy_Kinakh_2020.jpg', 256), color: '#0EA5E9', baseRating: 0.93, political_spectrum: 'centrist' },
-    { id: 'yakovenko', nameUk: 'Олександр Яковенко', nameRu: 'Александр Яковенко', party: 'Комуністична партія робітників і селян', logoSrc: wikiImage('9/98/Oleksandr_Yakovenko_politician.jpg', 64), photoSrc: wikiImage('9/98/Oleksandr_Yakovenko_politician.jpg', 256), color: '#B91C1C', baseRating: 0.78, political_spectrum: 'pro_ru' },
-    { id: 'omelchenko', nameUk: 'Олександр Омельченко', nameRu: 'Александр Омельченко', party: 'Партія «Єдність»', logoSrc: wikiImage('2/21/Oleksandr_Omelchenko_-_2004.jpg', 64), photoSrc: wikiImage('2/21/Oleksandr_Omelchenko_-_2004.jpg', 256), color: '#0284C7', baseRating: 0.48, political_spectrum: 'centrist' },
-    { id: 'chernovetskyi', nameUk: 'Леонід Черновецький', nameRu: 'Леонид Черновецкий', party: 'Самовисування', logoSrc: wikiImage('7/75/Leonid_Chernovetskyi_%282009-09-22%29.jpg', 64), photoSrc: wikiImage('7/75/Leonid_Chernovetskyi_%282009-09-22%29.jpg', 256), color: '#0D9488', baseRating: 0.46, political_spectrum: 'centrist' },
-    { id: 'korchynskyi', nameUk: 'Дмитро Корчинський', nameRu: 'Дмитрий Корчинский', party: 'Самовисування', logoSrc: wikiImage('1/17/Dmytro_Korchynskyi_2012.JPG', 64), photoSrc: wikiImage('1/17/Dmytro_Korchynskyi_2012.JPG', 256), color: '#7C3AED', baseRating: 0.17, political_spectrum: 'pro_ru' },
-    { id: 'chornovil', nameUk: 'Андрій Чорновіл', nameRu: 'Андрей Черновол', party: 'Самовисування', logoSrc: wikiImage('0/0c/Andriy_Chornovil_2002.jpg', 64), photoSrc: wikiImage('0/0c/Andriy_Chornovil_2002.jpg', 256), color: '#FACC15', baseRating: 0.12, political_spectrum: 'pro_eu' },
-    { id: 'hrabar', nameUk: 'Микола Грабар', nameRu: 'Николай Грабарь', party: 'Самовисування', logoSrc: wikiImage('8/8e/Mykola_Hrabar.jpg', 64), photoSrc: wikiImage('8/8e/Mykola_Hrabar.jpg', 256), color: '#4B5563', baseRating: 0.07, political_spectrum: 'centrist' },
-    { id: 'brodskyi', nameUk: 'Михайло Бродський', nameRu: 'Михаил Бродский', party: 'Самовисування', logoSrc: wikiImage('5/51/Mykhailo_Brodskyy.jpg', 64), photoSrc: wikiImage('5/51/Mykhailo_Brodskyy.jpg', 256), color: '#22C55E', baseRating: 0.05, political_spectrum: 'pro_eu' },
-    { id: 'zbitnev', nameUk: 'Юрій Збітнєв', nameRu: 'Юрий Збитнев', party: 'Партія «Нова сила»', logoSrc: wikiImage('4/44/Yuriy_Zbitnev.jpg', 64), photoSrc: wikiImage('4/44/Yuriy_Zbitnev.jpg', 256), color: '#2563EB', baseRating: 0.05, political_spectrum: 'pro_eu' },
-    { id: 'komissarenko', nameUk: 'Сергій Комісаренко', nameRu: 'Сергей Комиссаренко', party: 'Самовисування', logoSrc: wikiImage('7/78/Serhiy_Komisarenko_2017.jpg', 64), photoSrc: wikiImage('7/78/Serhiy_Komisarenko_2017.jpg', 256), color: '#14B8A6', baseRating: 0.04, political_spectrum: 'pro_eu' },
-    { id: 'volha', nameUk: 'Василь Волга', nameRu: 'Василий Волга', party: 'Партія «Громадський контроль»', logoSrc: wikiImage('0/0e/Vasyl_Volha_2010.jpg', 64), photoSrc: wikiImage('0/0e/Vasyl_Volha_2010.jpg', 256), color: '#EA580C', baseRating: 0.04, political_spectrum: 'pro_ru' },
-    { id: 'boiko', nameUk: 'Богдан Бойко', nameRu: 'Богдан Бойко', party: 'Рух українських патріотів', logoSrc: wikiImage('9/9b/Bohdan_Boyko_%282012%29.jpg', 64), photoSrc: wikiImage('9/9b/Bohdan_Boyko_%282012%29.jpg', 256), color: '#16A34A', baseRating: 0.04, political_spectrum: 'centrist' },
-    { id: 'rzhavskyi', nameUk: 'Олександр Ржавський', nameRu: 'Александр Ржавский', party: 'Партія «Єдина родина»', logoSrc: wikiImage('d/df/Oleksandr_Rzhavskyi.jpg', 64), photoSrc: wikiImage('d/df/Oleksandr_Rzhavskyi.jpg', 256), color: '#C026D3', baseRating: 0.03, political_spectrum: 'pro_ru' },
-    { id: 'rohozhynskyi', nameUk: 'Микола Рогожинський', nameRu: 'Николай Рогожинский', party: 'Самовисування', logoSrc: wikiImage('7/77/Mykola_Rohozhynskyi.jpg', 64), photoSrc: wikiImage('7/77/Mykola_Rohozhynskyi.jpg', 256), color: '#9333EA', baseRating: 0.03, political_spectrum: 'pro_ru' },
-    { id: 'kryvobokov', nameUk: 'Владислав Кривобоков', nameRu: 'Владислав Кривобоков', party: 'Народна партія вкладників соцзахисту', logoSrc: wikiImage('5/5e/Vladyslav_Kryvobokov.jpg', 64), photoSrc: wikiImage('5/5e/Vladyslav_Kryvobokov.jpg', 256), color: '#0F766E', baseRating: 0.03, political_spectrum: 'centrist' },
-    { id: 'bazilyuk', nameUk: 'Олександр Базилюк', nameRu: 'Александр Базилюк', party: "Слов'янська партія України", logoSrc: wikiImage('f/fd/Oleksandr_Bazilyuk.jpg', 64), photoSrc: wikiImage('f/fd/Oleksandr_Bazilyuk.jpg', 256), color: '#FB7185', baseRating: 0.03, political_spectrum: 'pro_ru' },
-    { id: 'dushyn', nameUk: 'Ігор Душин', nameRu: 'Игорь Душин', party: 'Ліберально-демократична партія України', logoSrc: wikiImage('2/2a/Ihor_Dushyn.jpg', 64), photoSrc: wikiImage('2/2a/Ihor_Dushyn.jpg', 256), color: '#0E7490', baseRating: 0.03, political_spectrum: 'centrist' },
-    { id: 'kozak', nameUk: 'Роман Козак', nameRu: 'Роман Козак', party: 'Організація українських націоналістів', logoSrc: wikiImage('a/a2/Roman_Kozak.jpg', 64), photoSrc: wikiImage('a/a2/Roman_Kozak.jpg', 256), color: '#F97316', baseRating: 0.02, political_spectrum: 'pro_eu' },
-    { id: 'nechyporuk', nameUk: 'Володимир Нечипорук', nameRu: 'Владимир Нечипорук', party: 'Самовисування', logoSrc: wikiImage('3/39/Volodymyr_Nechyporuk.jpg', 64), photoSrc: wikiImage('3/39/Volodymyr_Nechyporuk.jpg', 256), color: '#94A3B8', baseRating: 0.02, political_spectrum: 'centrist' }
+    { id: 'yushchenko', nameUk: 'Віктор Ющенко', nameRu: 'Виктор Ющенко', party: 'Самовисування', logoSrc: '', photoSrc: '', color: '#F97316', baseRating: 39.9, political_spectrum: 'pro_eu' },
+    { id: 'yanukovych', nameUk: 'Віктор Янукович', nameRu: 'Виктор Янукович', party: 'Партія регіонів', logoSrc: '', photoSrc: '', color: '#1D4ED8', baseRating: 39.26, political_spectrum: 'pro_ru' },
+    { id: 'moroz', nameUk: 'Олександр Мороз', nameRu: 'Александр Мороз', party: 'Соціалістична партія України', logoSrc: '', photoSrc: '', color: '#16A34A', baseRating: 5.82, political_spectrum: 'centrist' },
+    { id: 'symonenko', nameUk: 'Петро Симоненко', nameRu: 'Пётр Симоненко', party: 'Комуністична партія України', logoSrc: '', photoSrc: '', color: '#DC2626', baseRating: 4.97, political_spectrum: 'pro_ru' },
+    { id: 'vitrenko', nameUk: 'Наталія Вітренко', nameRu: 'Наталия Витренко', party: 'Прогресивна соціалістична партія України', logoSrc: '', photoSrc: '', color: '#991B1B', baseRating: 1.53, political_spectrum: 'pro_ru' },
+    { id: 'kinakh', nameUk: 'Анатолій Кінах', nameRu: 'Анатолий Кинах', party: 'Партія промисловців і підприємців', logoSrc: '', photoSrc: '', color: '#0EA5E9', baseRating: 0.93, political_spectrum: 'centrist' },
+    { id: 'yakovenko', nameUk: 'Олександр Яковенко', nameRu: 'Александр Яковенко', party: 'Комуністична партія робітників і селян', logoSrc: '', photoSrc: '', color: '#B91C1C', baseRating: 0.78, political_spectrum: 'pro_ru' },
+    { id: 'omelchenко', nameUk: 'Олександр Омельченко', nameRu: 'Александр Омельченко', party: 'Партія «Єдність»', logoSrc: '', photoSrc: '', color: '#0284C7', baseRating: 0.48, political_spectrum: 'centrist' },
+    { id: 'chernovetskyi', nameUk: 'Леонід Черновецький', nameRu: 'Леонид Черновецкий', party: 'Самовисування', logoSrc: '', photoSrc: '', color: '#0D9488', baseRating: 0.46, political_spectrum: 'centrist' },
+    { id: 'korchynskyi', nameUk: 'Дмитро Корчинський', nameRu: 'Дмитрий Корчинский', party: 'Самовисування', logoSrc: '', photoSrc: '', color: '#7C3AED', baseRating: 0.17, political_spectrum: 'pro_ru' },
+    { id: 'chornovil', nameUk: 'Андрій Чорновіл', nameRu: 'Андрей Черновол', party: 'Самовисування', logoSrc: '', photoSrc: '', color: '#FACC15', baseRating: 0.12, political_spectrum: 'pro_eu' },
+    { id: 'hrabar', nameUk: 'Микола Грабар', nameRu: 'Николай Грабарь', party: 'Самовисування', logoSrc: '', photoSrc: '', color: '#4B5563', baseRating: 0.07, political_spectrum: 'centrist' },
+    { id: 'brodskyi', nameUk: 'Михайло Бродський', nameRu: 'Михаил Бродский', party: 'Самовисування', logoSrc: '', photoSrc: '', color: '#22C55E', baseRating: 0.05, political_spectrum: 'pro_eu' },
+    { id: 'zbitnev', nameUk: 'Юрій Збітнєв', nameRu: 'Юрий Збитнев', party: 'Партія «Нова сила»', logoSrc: '', photoSrc: '', color: '#2563EB', baseRating: 0.05, political_spectrum: 'pro_eu' },
+    { id: 'komissarenko', nameUk: 'Сергій Комісаренко', nameRu: 'Сергей Комиссаренко', party: 'Самовисування', logoSrc: '', photoSrc: '', color: '#14B8A6', baseRating: 0.04, political_spectrum: 'pro_eu' },
+    { id: 'volha', nameUk: 'Василь Волга', nameRu: 'Василий Волга', party: 'Партія «Громадський контроль»', logoSrc: '', photoSrc: '', color: '#EA580C', baseRating: 0.04, political_spectrum: 'pro_ru' },
+    { id: 'boiko', nameUk: 'Богдан Бойко', nameRu: 'Богдан Бойко', party: 'Рух українських патріотів', logoSrc: '', photoSrc: '', color: '#16A34A', baseRating: 0.04, political_spectrum: 'centrist' },
+    { id: 'rzhavskyi', nameUk: 'Олександр Ржавський', nameRu: 'Александр Ржавский', party: 'Партія «Єдина родина»', logoSrc: '', photoSrc: '', color: '#C026D3', baseRating: 0.03, political_spectrum: 'pro_ru' },
+    { id: 'rohozhynskyi', nameUk: 'Микола Рогожинський', nameRu: 'Николай Рогожинский', party: 'Самовисування', logoSrc: '', photoSrc: '', color: '#9333EA', baseRating: 0.03, political_spectrum: 'pro_ru' },
+    { id: 'kryvobokov', nameUk: 'Владислав Кривобоков', nameRu: 'Владислав Кривобоков', party: 'Народна партія вкладників соцзахисту', logoSrc: '', photoSrc: '', color: '#0F766E', baseRating: 0.03, political_spectrum: 'centrist' },
+    { id: 'bazilyuk', nameUk: 'Олександр Базилюк', nameRu: 'Александр Базилюк', party: "Слов'янська партія України", logoSrc: '', photoSrc: '', color: '#FB7185', baseRating: 0.03, political_spectrum: 'pro_ru' },
+    { id: 'dushyn', nameUk: 'Ігор Душин', nameRu: 'Игорь Душин', party: 'Ліберально-демократична партія України', logoSrc: '', photoSrc: '', color: '#0E7490', baseRating: 0.03, political_spectrum: 'centrist' },
+    { id: 'kozak', nameUk: 'Роман Козак', nameRu: 'Роман Козак', party: 'Організація українських націоналістів', logoSrc: '', photoSrc: '', color: '#F97316', baseRating: 0.02, political_spectrum: 'pro_eu' },
+    { id: 'nechyporuk', nameUk: 'Володимир Нечипорук', nameRu: 'Владимир Нечипорук', party: 'Самовисування', logoSrc: '', photoSrc: '', color: '#94A3B8', baseRating: 0.02, political_spectrum: 'centrist' }
 ];
 
 const ALL_PARTIES: PartyBase[] = [];
@@ -287,6 +282,14 @@ export default function Ukraine2004ElectionGame() {
         }
         // Fallback to party name if structure is different
         return result.party || result.name || 'Unknown';
+    };
+
+    const getCandidateInitials = (candidate: CandidateState): string => {
+        const name = language === 'uk' ? candidate.nameUk : candidate.nameRu;
+        const parts = name.split(' ').filter(Boolean);
+        if (parts.length === 0) return '??';
+        const initials = parts.slice(0, 2).map(part => part[0]?.toUpperCase() || '').join('');
+        return initials || '??';
     };
 
     // Helper functions
@@ -940,11 +943,20 @@ export default function Ukraine2004ElectionGame() {
                                     {/* Top - Photo with gradient background */}
                                     <div className="h-40 bg-gradient-to-br from-slate-100 to-slate-200 relative overflow-hidden flex items-center justify-center">
                                         <div className="absolute inset-0 opacity-30" style={{ backgroundImage: `linear-gradient(135deg, ${candidate.color}20 0%, ${candidate.color}05 100%)` }}></div>
-                                                <img 
-                                                    src={candidate.photoSrc} 
-                                                    alt={candidate.name} 
-                                            className="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg relative z-10"
-                                                />
+                                        {candidate.photoSrc ? (
+                                            <img 
+                                                src={candidate.photoSrc} 
+                                                alt={getCandidateName(candidate)} 
+                                                className="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg relative z-10"
+                                            />
+                                        ) : (
+                                            <div
+                                                className="w-32 h-32 rounded-full border-4 border-white shadow-lg relative z-10 flex items-center justify-center text-3xl font-black text-white"
+                                                style={{ backgroundColor: candidate.color }}
+                                            >
+                                                {getCandidateInitials(candidate)}
+                                            </div>
+                                        )}
                                     </div>
                                     
                                     {/* Middle - Content */}
@@ -955,11 +967,20 @@ export default function Ukraine2004ElectionGame() {
                                                 {getCandidateName(candidate)}
                                             </h3>
                                             <div className="flex items-center justify-center gap-2 mb-3">
-                                                <img 
-                                                    src={candidate.logoSrc} 
-                                                    alt={candidate.party} 
-                                                    className="w-5 h-5 object-contain"
-                                                />
+                                                {candidate.logoSrc ? (
+                                                    <img 
+                                                        src={candidate.logoSrc} 
+                                                        alt={candidate.party} 
+                                                        className="w-5 h-5 object-contain"
+                                                    />
+                                                ) : (
+                                                    <span
+                                                        className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold text-white"
+                                                        style={{ backgroundColor: candidate.color }}
+                                                    >
+                                                        {candidate.party.slice(0, 2).toUpperCase()}
+                                                    </span>
+                                                )}
                                                 <p className="text-xs text-slate-600 font-semibold">{candidate.party}</p>
                                             </div>
                                         </div>
@@ -1031,12 +1052,30 @@ export default function Ukraine2004ElectionGame() {
                                     <div className="absolute inset-0 bg-gradient-to-r from-slate-400 to-slate-500 rounded-3xl blur-xl opacity-30 group-hover:opacity-40 transition duration-500"></div>
                                     <div className="relative bg-white rounded-3xl shadow-lg hover:shadow-xl border border-slate-100 p-4 md:p-10 backdrop-blur-sm">
                                         <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 mb-4 md:mb-8">
-                                            <img src={candidate.photoSrc} alt={getCandidateName(candidate)} 
-                                                 className="w-20 md:w-28 h-20 md:h-28 rounded-full border-4 border-slate-200 object-cover shadow-md flex-shrink-0" />
+                                            {candidate.photoSrc ? (
+                                                <img src={candidate.photoSrc} alt={getCandidateName(candidate)} 
+                                                     className="w-20 md:w-28 h-20 md:h-28 rounded-full border-4 border-slate-200 object-cover shadow-md flex-shrink-0" />
+                                            ) : (
+                                                <div
+                                                    className="w-20 md:w-28 h-20 md:h-28 rounded-full border-4 border-slate-200 shadow-md flex-shrink-0 flex items-center justify-center text-2xl md:text-4xl font-black text-white"
+                                                    style={{ backgroundColor: candidate.color }}
+                                                >
+                                                    {getCandidateInitials(candidate)}
+                                                </div>
+                                            )}
                                             <div className="flex-1 text-center md:text-left">
                                                 <h3 className="font-bold text-xl md:text-3xl text-slate-900">{getCandidateName(candidate)}</h3>
                                                 <p className="text-slate-700 font-bold text-sm md:text-lg mt-2">{candidate.party}</p>
-                                                <img src={candidate.logoSrc} alt={candidate.party} className="w-10 md:w-16 h-10 md:h-16 mt-2 md:mt-4 mx-auto md:mx-0" />
+                                                {candidate.logoSrc ? (
+                                                    <img src={candidate.logoSrc} alt={candidate.party} className="w-10 md:w-16 h-10 md:h-16 mt-2 md:mt-4 mx-auto md:mx-0" />
+                                                ) : (
+                                                    <span
+                                                        className="w-10 md:w-16 h-10 md:h-16 mt-2 md:mt-4 mx-auto md:mx-0 rounded-full flex items-center justify-center text-sm md:text-lg font-bold text-white"
+                                                        style={{ backgroundColor: candidate.color }}
+                                                    >
+                                                        {candidate.party.slice(0, 2).toUpperCase()}
+                                                    </span>
+                                                )}
                                             </div>
                                         </div>
                                         <Button className="w-full bg-slate-700 hover:bg-slate-800 text-white text-sm md:text-lg py-4 md:py-7 shadow-md hover:shadow-lg transition-all duration-300 rounded-xl">{TRANSLATIONS[language].selectRival}</Button>
@@ -1096,8 +1135,17 @@ export default function Ukraine2004ElectionGame() {
                                     </>
                                 ) : playerCandidate ? (
                                     <>
-                                        <img src={playerCandidate.photoSrc} alt={getCandidateName(playerCandidate)}
-                                             className="w-10 h-10 rounded-full border-2 border-slate-200 object-cover shadow-md" />
+                                        {playerCandidate.photoSrc ? (
+                                            <img src={playerCandidate.photoSrc} alt={getCandidateName(playerCandidate)}
+                                                 className="w-10 h-10 rounded-full border-2 border-slate-200 object-cover shadow-md" />
+                                        ) : (
+                                            <div
+                                                className="w-10 h-10 rounded-full border-2 border-slate-200 shadow-md flex items-center justify-center text-xs font-bold text-white"
+                                                style={{ backgroundColor: playerCandidate.color }}
+                                            >
+                                                {getCandidateInitials(playerCandidate)}
+                                            </div>
+                                        )}
                                         <div>
                                             <p className="font-bold text-sm text-slate-900">{getCandidateName(playerCandidate)}</p>
                                             <p className="text-xs text-slate-600 font-bold">{playerCandidate.party}</p>
@@ -1189,7 +1237,14 @@ export default function Ukraine2004ElectionGame() {
                                         <div key={res.id} className="text-sm">
                                             <div className="flex items-center justify-between mb-1">
                                                 <div className="flex items-center gap-1 flex-1 min-w-0">
-                                                    <img src={res.logoSrc} alt={res.party} className="w-3 h-3 object-contain flex-shrink-0" />
+                                                    {res.logoSrc ? (
+                                                        <img src={res.logoSrc} alt={res.party} className="w-3 h-3 object-contain flex-shrink-0" />
+                                                    ) : (
+                                                        <span
+                                                            className="w-3 h-3 rounded-full flex-shrink-0"
+                                                            style={{ backgroundColor: res.color || '#64748b' }}
+                                                        ></span>
+                                                    )}
                                                     <span className="font-bold text-slate-900 truncate">{getNameFromResult(res)}</span>
                                                 </div>
                                                 <span className="font-black text-slate-900 ml-1 flex-shrink-0 text-sm">{res.percentage.toFixed(1)}%</span>
@@ -1303,11 +1358,20 @@ export default function Ukraine2004ElectionGame() {
                                             <div className="flex gap-2 md:gap-3 items-start">
                                                 {/* Logo */}
                                                 <div className="w-10 md:w-12 h-10 md:h-12 flex-shrink-0 flex items-center justify-center bg-slate-50 rounded border border-slate-200">
-                                                    <img 
-                                                        src={res.logoSrc} 
-                                                        alt={res.party} 
-                                                        className="w-8 md:w-10 h-8 md:h-10 object-contain"
-                                                    />
+                                                    {res.logoSrc ? (
+                                                        <img 
+                                                            src={res.logoSrc} 
+                                                            alt={res.party} 
+                                                            className="w-8 md:w-10 h-8 md:h-10 object-contain"
+                                                        />
+                                                    ) : (
+                                                        <span
+                                                            className="w-8 md:w-10 h-8 md:h-10 rounded-full flex items-center justify-center text-xs md:text-sm font-bold text-white"
+                                                            style={{ backgroundColor: res.color || '#64748b' }}
+                                                        >
+                                                            {getCandidateInitials(res as CandidateState)}
+                                                        </span>
+                                                    )}
                                                 </div>
                                                 
                                                 {/* Name and Stats */}
