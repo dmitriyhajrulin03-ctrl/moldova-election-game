@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
@@ -8,24 +9,27 @@ const scenarios = [
     title: 'Молдова · Президентські вибори 2028',
     description:
       'Очольте одного з фаворитів молдовської кампанії 2028 року та проведіть його через два тури.',
-    badge: '🇲🇩',
     href: '/moldova-presidential',
+    flagSrc: '/flags/moldova.svg',
+    flagAlt: 'Прапор Молдови',
   },
   {
     id: 'moldova-parliamentary',
     title: 'Молдова · Парламентські вибори 2025',
     description:
       'Зберіть власну коаліцію та спробуйте здобути більшість у законодавчому органі Молдови.',
-    badge: '🏛️',
     href: '/moldova-parliamentary',
+    flagSrc: '/flags/moldova.svg',
+    flagAlt: 'Прапор Молдови',
   },
   {
     id: 'ukraine-2004',
     title: 'Україна · Президентські вибори 2004',
     description:
       'Переживіть драму помаранчевої революції та повторного голосування грудня 2004 року.',
-    badge: '🇺🇦',
     href: '/ukraine-2004',
+    flagSrc: '/flags/ukraine.svg',
+    flagAlt: 'Прапор України',
   },
 ];
 
@@ -61,8 +65,18 @@ export default function Home() {
         {scenarios.map((scenario) => (
           <Link key={scenario.id} href={scenario.href} className="group">
             <Card className="h-full p-6 flex flex-col gap-4 border-2 border-transparent group-hover:border-slate-300 transition-all duration-300">
-              <div className="text-4xl">{scenario.badge}</div>
-              <h2 className="text-xl font-bold text-slate-900 leading-snug">{scenario.title}</h2>
+              <div className="flex items-center gap-3">
+                <div className="relative w-12 h-8 overflow-hidden rounded shadow-sm">
+                  <Image
+                    src={scenario.flagSrc}
+                    alt={scenario.flagAlt}
+                    fill
+                    sizes="48px"
+                    className="object-cover"
+                  />
+                </div>
+                <h2 className="text-xl font-bold text-slate-900 leading-snug">{scenario.title}</h2>
+              </div>
               <p className="text-slate-600 text-sm flex-1">{scenario.description}</p>
               <Button className="mt-2 bg-slate-900 hover:bg-slate-700 text-white rounded-xl">
                 Розпочати сценарій
