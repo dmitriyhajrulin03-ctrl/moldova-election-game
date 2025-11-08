@@ -265,9 +265,16 @@ type NewsItem = {
     headline: string;
 };
 
-export default function MoldovaElectionGame() {
-    const [phase, setPhase] = useState<GamePhase>('mode_selection');
-    const [gameMode, setGameMode] = useState<GameMode>('presidential');
+type MoldovaElectionGameProps = {
+    initialMode?: GameMode;
+    startPhase?: GamePhase;
+};
+
+export default function MoldovaElectionGame({ initialMode = 'presidential', startPhase = 'mode_selection' }: MoldovaElectionGameProps) {
+    const initialGameMode = initialMode;
+    const initialGamePhase = startPhase;
+    const [phase, setPhase] = useState<GamePhase>(initialGamePhase);
+    const [gameMode, setGameMode] = useState<GameMode>(initialGameMode);
     const [turn, setTurn] = useState(1);
     const [round2Turn, setRound2Turn] = useState(1);
     const [budget, setBudget] = useState(15);
@@ -760,8 +767,8 @@ export default function MoldovaElectionGame() {
     };
 
     const resetGame = () => {
-        setPhase('mode_selection');
-        setGameMode('presidential');
+        setPhase(initialGamePhase);
+        setGameMode(initialGameMode);
         setTurn(1);
         setRound2Turn(1);
         setBudget(15);
