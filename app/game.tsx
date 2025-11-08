@@ -654,8 +654,6 @@ export default function MoldovaElectionGame() {
         setFundraisingUses(0); // Скидаємо лічильник при початку кампанії
         setPhase('campaign');
     };
-<｜tool▁calls▁begin｜><｜tool▁call▁begin｜>
-read_file
 
     const performAction = (action: typeof actions[0]) => {
         if (budget < action.cost && action.cost > 0) return;
@@ -982,7 +980,7 @@ read_file
                                     setPlayerParty(newParties.find(p => p.id === party.id)!);
                                     const active = newParties; // All parties participate in parliamentary elections
                                     setActiveParties(active);
-                                    setFundraisingUses(0); // Скидаємо лічильник при початку парламентської кампанії
+                                    setFundraisingUses(0); // Скидаємо лічильник при початку парламентарської кампанії
                                     setPhase('parliament_campaign');
                                 }}
                                 className="group cursor-pointer transform transition-all duration-300 hover:-translate-y-2"
